@@ -2,9 +2,9 @@
 
 My optimized iOS template used in my projects using Xcode Templates
 
-## Enviroment
+## Requirements
 
-Xcode 13.2.1
+Xcode 13+
 
 ## Wiki
 
@@ -12,6 +12,7 @@ Xcode 13.2.1
 2. [Project Configurations](https://github.com/dlsolution/ios-templates/wiki/Project-configurations)
 3. [Why having project's dependencies](https://github.com/dlsolution/ios-templates/wiki/Why-having-project%27s-dependencies)
 4. [Github Actions](https://github.com/dlsolution/ios-templates/wiki/Github-Actions-Templates)
+5. [Bitrise Template](https://github.com/dlsolution/ios-templates/wiki/Bitrise-Template)
 
 # Tuist Installation and Documentations
 

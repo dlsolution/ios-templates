@@ -1,25 +1,26 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-/*
-                +-------------+
-                |             |
-                |     App     | Contains IosTemplates App target and IosTemplates unit-test target
-                |             |
-         +------+-------------+-------+
-         |         depends on         |
-         |                            |
- +----v-----+                   +-----v-----+
- |          |                   |           |
- |   Kit    |                   |     UI    |   Two independent frameworks to share code and start modularising your app
- |          |                   |           |
- +----------+                   +-----------+
+let project = Project.project(name: "{PROJECT_NAME}", bundleId: "{BUNDLE_ID_PRODUCTION}")
 
- */
+extension Project {
 
-// MARK: - Project
-
-// Creates our project using a helper function defined in ProjectDescriptionHelpers
-let project = Project.app(name: "IosTemplates",
-                          platform: .iOS,
-                          additionalTargets: ["IosTemplatesKit", "IosTemplatesUI"])
+    static func project(name: String, bundleId: String) -> Project {
+        return Project(
+            name: name,
+            organizationName: "EstRouge",
+            settings: .settings(
+                configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) }
+            ),
+            targets: [
+                .mainTarget(name: name, bundleId: bundleId),
+                .testsTarget(name: name, bundleId: bundleId),
+                .uiTestsTarget(name: name, bundleId: bundleId)
+            ],
+            schemes: [
+                .productionScheme(name: name),
+                .stagingScheme(name: name)
+            ]
+        )
+    }
+}
