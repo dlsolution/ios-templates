@@ -149,7 +149,7 @@ echo "✅  Completed"
 
 # Install dependencies
 echo "Installing gems"
-sudo bundle install
+bundle install
 echo "Installing pod dependencies"
 # bundle exec pod install --repo-update
 echo "✅  Completed"
