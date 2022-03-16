@@ -1,6 +1,3 @@
 import ProjectDescription
 
-let config = Config(
-    compatibleXcodeVersions: .all,
-    generationOptions: .options()
-)
+let config = Config()

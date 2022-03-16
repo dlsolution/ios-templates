@@ -9,6 +9,10 @@ extension Project {
         return Project(
             name: name,
             organizationName: "EstRouge",
+            options: .options(automaticSchemesOptions: .disabled,
+                              disableBundleAccessors: true,
+                              disableShowEnvironmentVarsInScriptPhases: true,
+                              disableSynthesizedResourceAccessors: true),
             settings: .settings(
                 configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) }
             ),
