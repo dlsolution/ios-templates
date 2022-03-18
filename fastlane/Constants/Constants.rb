@@ -7,22 +7,22 @@ class Constants
 
   # Workspace path
   def self.WORKSPACE_PATH
-    './{PROJECT_NAME}.xcworkspace'
+    './MyApp.xcworkspace'
   end
 
   # Project path
   def self.PROJECT_PATH
-    './{PROJECT_NAME}.xcodeproj'
+    './MyApp.xcodeproj'
   end
 
   # bundle ID for Staging app
   def self.BUNDLE_ID_STAGING
-    '{BUNDLE_ID_STAGING}'
+    'vn.er.myapp.staging'
   end
 
   # bundle ID for Production app
   def self.BUNDLE_ID_PRODUCTION
-    '{BUNDLE_ID_PRODUCTION}'
+    'vn.er.myapp'
   end
 
   #################
@@ -50,17 +50,17 @@ class Constants
 
   # a scheme name for testing
   def self.TESTS_SCHEME
-    '{PROJECT_NAME} Staging'
+    'MyApp Staging'
   end
 
   # a target name for tests
   def self.TESTS_TARGET
-    '{PROJECT_NAME}Tests'
+    'MyAppTests'
   end
 
   # a target name for UI tests
   def self.UI_TESTS_TARGET
-    '{PROJECT_NAME}UITests'
+    'MyAppUITests'
   end
 
   # xcov output directory path
@@ -84,12 +84,12 @@ class Constants
 
   # a gsp file name for staging
   def self.GSP_STAGING
-    './{PROJECT_NAME}/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist'
+    './MyApp/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist'
   end
 
   # a gsp file name for production
   def self.GSP_PRODUCTION
-    './{PROJECT_NAME}/Configurations/Plists/GoogleService/Production/GoogleService-Info.plist'
+    './MyApp/Configurations/Plists/GoogleService/Production/GoogleService-Info.plist'
   end
 
   # The path to the upload-symbols file of the Fabric app
@@ -132,37 +132,37 @@ class Constants
 
    # a developer portal team id
   def self.DEV_PORTAL_TEAM_ID
-    '{PROJECT_TEAM_ID}'
+    '6R7AZQR2W6'
   end
 
   # an staging environment scheme name
   def self.SCHEME_NAME_STAGING
-    '{PROJECT_NAME} Staging'
+    'MyApp Staging'
   end
 
   # a Production environment scheme name
   def self.SCHEME_NAME_PRODUCTION
-    '{PROJECT_NAME}'
+    'MyApp'
   end
 
   # an staging product name
   def self.PRODUCT_NAME_STAGING
-    '{PROJECT_NAME} Staging'
+    'MyApp Staging'
   end
 
   # a staging TestFlight product name
   def self.PRODUCT_NAME_STAGING_TEST_FLIGHT
-    '{PROJECT_NAME} TestFlight'
+    'MyApp TestFlight'
   end
 
   # a Production product name
   def self.PRODUCT_NAME_PRODUCTION
-    '{PROJECT_NAME}'
+    'MyApp'
   end
 
   # a main target name
   def self.MAIN_TARGET_NAME
-    '{PROJECT_NAME}'
+    'MyApp'
   end
 
   ##################
@@ -171,7 +171,7 @@ class Constants
 
   # Apple ID for Apple Developer Portal
   def self.DEV_PORTAL_APPLE_ID
-    '{dev@example.com}'
+    'duylinh.dev@icloud.com'
   end
 
   #####################
@@ -180,12 +180,12 @@ class Constants
 
   # App Store Connect API Key ID
   def self.APP_STORE_KEY_ID
-    '{API_KEY_ID}'
+    '9QZ6DW3828'
   end
 
   # App Store Connect API Issuer ID
   def self.APP_STORE_ISSUER_ID
-    '{ISSUER_ID}'
+    '590d987d-3dab-4ada-bc09-19c00e9b9bf8'
   end
 
 end
