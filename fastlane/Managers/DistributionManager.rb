@@ -7,6 +7,16 @@ class DistributionManager
     @firebase_token = firebase_token
   end
 
+  def upload_to_deploygate(product_name:, api_token:, notes:)
+    ipa_path = "#{@build_path}/#{product_name}.ipa"
+    @fastlane.deploygate(
+      api_token: "80cb42dff9c96adb8ee84cb8cc5ef3b839312d7e",
+      user: "duylinh158",
+      ipa: ipa_path,
+      message: notes
+    )
+  end
+
   def upload_to_firebase(product_name:, firebase_app_id:, notes:, tester_groups:)
     ipa_path = "#{@build_path}/#{product_name}.ipa"
     @fastlane.firebase_app_distribution(
