@@ -15,6 +15,11 @@ class Constants
     './{PROJECT_NAME}.xcodeproj'
   end
 
+  # bundle ID for Development app
+  def self.BUNDLE_ID_DEVELOPMENT
+    '{BUNDLE_ID_DEVELOPMENT}'
+  end
+  
   # bundle ID for Staging app
   def self.BUNDLE_ID_STAGING
     '{BUNDLE_ID_STAGING}'
@@ -118,22 +123,17 @@ class Constants
 
   # Keychain name
   def self.KEYCHAIN_NAME
-    'github_action_keychain'
+    'dev_keychain'
   end
 
   # a scheme name for unit testing
   def self.KEYCHAIN_PASSWORD
-    'password'
+    '123!@#'
   end
 
   #################
   ### ARCHIVING ###
   #################
-
-   # a developer portal team id
-  def self.DEV_PORTAL_TEAM_ID
-    '{PROJECT_TEAM_ID}'
-  end
 
   # an staging environment scheme name
   def self.SCHEME_NAME_STAGING
@@ -171,7 +171,17 @@ class Constants
 
   # Apple ID for Apple Developer Portal
   def self.DEV_PORTAL_APPLE_ID
-    '{dev@example.com}'
+    'duylinh.dev@icloud.com'
+  end
+
+  # A developer portal team id
+  def self.DEV_PORTAL_TEAM_ID
+    '6R7AZQR2W6'
+  end
+
+  # Team name for Apple Developer Portal
+  def self.DEV_PORTAL_TEAM_NAME
+    'Linh Vo Duy'
   end
 
   #####################
@@ -180,12 +190,26 @@ class Constants
 
   # App Store Connect API Key ID
   def self.APP_STORE_KEY_ID
-    '{API_KEY_ID}'
+    'HFT7TCCL2J'
   end
 
   # App Store Connect API Issuer ID
   def self.APP_STORE_ISSUER_ID
-    '{ISSUER_ID}'
+    '590d987d-3dab-4ada-bc09-19c00e9b9bf8'
+  end
+
+  #####################
+  ### Deploygate ###
+  #####################
+
+  # Deploygate user
+  def self.DEPLOYGATE_USER
+    'duylinh158'
+  end
+
+  # Deploygate Api Token
+  def self.DEPLOYGATE_API_TOKEN
+    '80cb42dff9c96adb8ee84cb8cc5ef3b839312d7e'
   end
 
 end

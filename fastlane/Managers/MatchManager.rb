@@ -13,7 +13,26 @@ class MatchManager
     @is_ci = is_ci
   end
 
-  def sync_adhoc_signing(app_identifier:)
+  def sync_development_signing(app_identifier:, readonly:)
+    if @is_ci
+      create_ci_keychain
+      @fastlane.match(
+        type: 'development',
+        keychain_name: @keychain_name,
+        keychain_password: @keychain_password,
+        app_identifier: app_identifier,
+        readonly: readonly
+      )
+    else
+      @fastlane.match(
+        type: 'development', 
+        app_identifier: app_identifier, 
+        readonly: readonly
+      )
+    end
+  end
+
+  def sync_adhoc_signing(app_identifier:, readonly:)
     if @is_ci
       create_ci_keychain
       @fastlane.match(
@@ -21,14 +40,18 @@ class MatchManager
         keychain_name: @keychain_name,
         keychain_password: @keychain_password,
         app_identifier: app_identifier,
-        readonly: true
+        readonly: readonly
       )
     else
-      @fastlane.match(type: 'adhoc', app_identifier: app_identifier, readonly: true)
+      @fastlane.match(
+        type: 'adhoc', 
+        app_identifier: app_identifier, 
+        readonly: readonly
+      )
     end
   end
 
-  def sync_app_store_signing(app_identifier:)
+  def sync_app_store_signing(app_identifier:, readonly:)
     if @is_ci
       create_ci_keychain
       @fastlane.match(
@@ -36,10 +59,14 @@ class MatchManager
         keychain_name: @keychain_name,
         keychain_password: @keychain_password,
         app_identifier: app_identifier,
-        readonly: true
+        readonly: readonly
       )
     else
-      @fastlane.match(type: 'appstore', app_identifier: app_identifier, readonly: true)
+      @fastlane.match(
+        type: 'appstore', 
+        app_identifier: app_identifier, 
+        readonly: readonly
+      )
     end
   end
 

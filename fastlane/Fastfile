@@ -8,6 +8,7 @@ require './Managers/SymbolManager'
 require './Managers/DistributionManager'
 require './Managers/MatchManager'
 require './Managers/TestManager'
+require './Managers/ProduceManager'
 
 test_manager = TestManager.new(
   fastlane: self,
@@ -21,7 +22,9 @@ versioning_manager = VersioningManager.new(
   main_target_name: Constants.MAIN_TARGET_NAME
 )
 
-builder = BuildManager.new(fastlane: self)
+builder = BuildManager.new(
+  fastlane: self
+)
 
 distribution_manager = DistributionManager.new(
   fastlane: self,
@@ -34,6 +37,10 @@ match_manager = MatchManager.new(
   keychain_name: Constants.KEYCHAIN_NAME,
   keychain_password: Constants.KEYCHAIN_PASSWORD,
   is_ci: Environments.CI
+)
+
+produce_Manager = ProduceManager.new(
+  fastlane: self
 )
 
 before_all do
@@ -50,25 +57,42 @@ platform :ios do
   lane :build_and_test do
     test_manager.build_and_test(
       scheme: Constants.TESTS_SCHEME,
-      targets: [Constants.TESTS_TARGET, Constants.UI_TESTS_TARGET]
+      targets: [Constants.TESTS_TARGET]
     )
   end
 
   # Code Sign
 
+  desc 'Sync Development match signing'
+  lane :sync_development_signing do
+    match_manager.sync_development_signing(
+      app_identifier: [Constants.BUNDLE_ID_DEVELOPMENT],
+      readonly: false
+    )
+  end
+
   desc 'Sync Adhoc match signing'
   lane :sync_adhoc_signing do
-    match_manager.sync_adhoc_signing(app_identifier: [Constants.BUNDLE_ID_STAGING])
+    match_manager.sync_adhoc_signing(
+      app_identifier: [Constants.BUNDLE_ID_STAGING],
+      readonly: false
+    )
   end
 
   desc 'Sync Adhoc Production match signing'
   lane :sync_adhoc_production_signing do
-    match_manager.sync_adhoc_signing(app_identifier: [Constants.BUNDLE_ID_PRODUCTION])
+    match_manager.sync_adhoc_signing(
+      app_identifier: [Constants.BUNDLE_ID_PRODUCTION],
+      readonly: false
+    )
   end
 
   desc 'Sync AppStore match signing'
   lane :sync_appstore_signing do
-    match_manager.sync_app_store_signing(app_identifier: [Constants.BUNDLE_ID_PRODUCTION])
+    match_manager.sync_app_store_signing(
+      app_identifier: [Constants.BUNDLE_ID_PRODUCTION],
+      readonly: false
+    )
   end
 
   desc 'Register new devices'
@@ -81,6 +105,37 @@ platform :ios do
     match(force: true)
   end
 
+  # Deploygate
+
+  desc 'upload build to Deploygate'
+  lane :upload_build_to_deploygate do |options|
+    set_app_version
+    bump_build
+    produce_Manager.create_app_identifier(
+      username: Constants.DEV_PORTAL_APPLE_ID,
+      app_identifier: Constants.BUNDLE_ID_STAGING,
+      app_name: Constants.PRODUCT_NAME_PRODUCTION,
+      team_name: Constants.DEV_PORTAL_TEAM_NAME,
+      skip_itc: true
+    )
+    match_manager.sync_adhoc_signing(
+      app_identifier: [Constants.BUNDLE_ID_STAGING],
+      readonly: false
+    )
+    builder.build_ad_hoc(
+      Constants.SCHEME_NAME_STAGING,
+      Constants.PRODUCT_NAME_STAGING,
+      Constants.BUNDLE_ID_STAGING
+    )
+    release_notes = "#{options[:product_name]} #{versioning_manager.version_and_build_number}"
+    distribution_manager.upload_to_deploygate(
+      product_name: options[:product_name],
+      api_token: Constants.DEPLOYGATE_API_TOKEN,
+      user: Constants.DEPLOYGATE_USER,
+      message: release_notes
+    )
+  end
+  
   # Firebase
 
   desc 'Build and upload staging app to Firebase'

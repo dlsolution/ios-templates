@@ -5,6 +5,16 @@ class BuildManager
     @fastlane = fastlane
   end
 
+  def build_development(scheme, product_name, bundle_identifier)
+    @fastlane.gym(
+      scheme: scheme,
+      export_method: 'development',
+      include_bitcode: false,
+      output_name: product_name,
+      disable_xcpretty: true
+    )
+  end
+
   def build_ad_hoc(scheme, product_name, bundle_identifier)
     @fastlane.gym(
       scheme: scheme,
