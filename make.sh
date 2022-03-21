@@ -113,14 +113,6 @@ rename_folder "${CONSTANT_PROJECT_NAME}UITests" "${PROJECT_NAME_NO_SPACES}UITest
 # Rename app folder structure
 rename_folder "${CONSTANT_PROJECT_NAME}" "${PROJECT_NAME_NO_SPACES}"
 
-# Add AutoMockable.generated.swift file
-mkdir -p "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery"
-touch "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift"
-
-# Add R.generated.swift file
-mkdir -p "${PROJECT_NAME_NO_SPACES}/Sources/Supports/Helpers/Rswift"
-touch "${PROJECT_NAME_NO_SPACES}/Sources/Supports/Helpers/Rswift/R.generated.swift"
-
 echo "✅  Completed"
 
 # Search and replace in files
@@ -153,6 +145,45 @@ bundle install
 echo "Installing pod dependencies"
 # bundle exec pod install --repo-update
 echo "✅  Completed"
+
+# Generate app-icon
+OUTDIR=${PROJECT_NAME_NO_SPACES}/Resources/Assets/Assets.xcassets/AppIcon.appiconset
+
+if [ ! -d ./${PROJECT_NAME_NO_SPACES} ] 
+  then
+    echo Add project first
+    exit 1
+fi
+
+if [ ! -f icon.png ]
+  then
+    echo Please add a PNG image named icon.png with size 1024x1024 to this folder and re-run this script.
+    exit 1
+fi
+
+echo Making $OUTDIR if it does not already exist.
+[ -d $OUTDIR ] || mkdir -p $OUTDIR
+
+echo Generating Icons...
+
+sips -z 40 40 --out $OUTDIR/icon-app-20@2x.png icon.png
+sips -z 60 60 --out $OUTDIR/icon-app-20@3x.png icon.png
+sips -z 58 58 --out $OUTDIR/icon-app-29@2x.png icon.png
+sips -z 87 87 --out $OUTDIR/icon-app-29@3x.png icon.png
+sips -z 80 80 --out $OUTDIR/icon-app-40@2x.png icon.png
+sips -z 120 120 --out $OUTDIR/icon-app-40@3x.png icon.png
+sips -z 120 120 --out $OUTDIR/icon-app-60@2x.png icon.png
+sips -z 180 180 --out $OUTDIR/icon-app-60@3x.png icon.png
+sips -z 20 20 --out $OUTDIR/icon20.png icon.png
+sips -z 40 40 --out $OUTDIR/icon20@2x.png icon.png
+sips -z 29 29 --out $OUTDIR/icon29.png icon.png
+sips -z 58 58 --out $OUTDIR/icon29@2x.png icon.png
+sips -z 40 40 --out $OUTDIR/icon40.png icon.png
+sips -z 80 80 --out $OUTDIR/icon40@2x.png icon.png
+sips -z 76 76 --out $OUTDIR/icon76.png icon.png
+sips -z 152 152 --out $OUTDIR/icon76@2x.png icon.png
+sips -z 167 167 --out $OUTDIR/icon83.5@2x.png icon.png
+sips -z 1024 1024 --out $OUTDIR/icon1024.png icon.png 
 
 # Remove gitkeep files
 echo "Remove gitkeep files from project"
